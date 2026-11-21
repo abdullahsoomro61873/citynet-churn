@@ -302,41 +302,6 @@ citynet-churn/
 ├── requirements.txt
 └── README.md
 ```
-
-### 10. How to Run
-
-**Step 1: Activate the virtual environment**
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-**Step 2: Install dependencies**
-
-```powershell
-pip install -r requirements.txt
-```
-
-**Step 3: Run Lab 4**
-
-```powershell
-python src/04_model_evaluation.py
-```
-
-The evaluation results will be displayed in the terminal, and all six diagrams will be saved automatically in the `results/` directory.
-
-**Note:** Lab 4 requires the trained model files from Lab 3 and the preprocessing module from Lab 2.
-
-### 11. Conclusion
-
-In this lab, Logistic Regression and Linear SVM were evaluated using multiple classification metrics and visualizations.
-
-Both models demonstrated similar overall accuracy and ROC-AUC performance. However, their low recall scores indicate that churn detection needs further improvement.
-
-The evaluation results provide a foundation for the next stage of the project.
-
-### 12. Next Steps
-
 **Lab 5 – Model Experiments and Comparison**
 
 The next lab will focus on:
@@ -420,6 +385,41 @@ Model comparison results are saved in:
 This lab demonstrated that accuracy alone is not sufficient for evaluating models on an imbalanced dataset. Recall, F1-Score, and PR-AUC provide additional insight into churn prediction performance.
 
 **Next:** Lab 6 – Business Evaluation: Identifying the Top 100 High-Risk Customers and evaluating a customer retention strategy.
+
+
+### 10. How to Run
+
+**Step 1: Activate the virtual environment**
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+**Step 2: Install dependencies**
+
+```powershell
+pip install -r requirements.txt
+```
+
+**Step 3: Run Lab 4**
+
+```powershell
+python src/04_model_evaluation.py
+```
+
+The evaluation results will be displayed in the terminal, and all six diagrams will be saved automatically in the `results/` directory.
+
+**Note:** Lab 4 requires the trained model files from Lab 3 and the preprocessing module from Lab 2.
+
+### 11. Conclusion
+
+In this lab, Logistic Regression and Linear SVM were evaluated using multiple classification metrics and visualizations.
+
+Both models demonstrated similar overall accuracy and ROC-AUC performance. However, their low recall scores indicate that churn detection needs further improvement.
+
+The evaluation results provide a foundation for the next stage of the project.
+
+### 12. Next Steps
 
 
 ## 7. How to Run
