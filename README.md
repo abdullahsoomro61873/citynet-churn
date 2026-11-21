@@ -153,6 +153,205 @@ models/
 - Model performance evaluation will be performed in Lab 4.
 - Final model selection will be based on evaluation and comparison results.
 
+# Lab 4 – Model Evaluation
+
+## CityNet Customer Churn Prediction
+
+### 1. Overview
+
+Lab 4 focuses on evaluating two trained Machine Learning models:
+
+- Logistic Regression
+- Linear Support Vector Machine (SVM)
+
+The purpose of this lab is to measure model performance using different classification metrics and visualizations.
+
+Both models are evaluated using the same testing dataset containing 1,000 customer records.
+
+### 2. Objectives
+
+- Load previously trained Machine Learning models.
+- Generate predictions on testing data.
+- Calculate classification evaluation metrics.
+- Generate and analyze confusion matrices.
+- Compare model performance.
+- Visualize classification reports using heatmaps.
+- Evaluate models using ROC and Precision-Recall curves.
+- Save evaluation diagrams for future reference.
+
+### 3. Models Evaluated
+
+| Model | Description |
+|---|---|
+| Logistic Regression | A classification algorithm used to predict customer churn. |
+| Linear SVM | A Support Vector Machine classifier used to distinguish churn and non-churn customers. |
+
+### 4. Dataset Information
+
+| Description | Value |
+|---|---:|
+| Total Records | 5,000 |
+| Total Features | 11 |
+| Training Records | 4,000 |
+| Testing Records | 1,000 |
+| Target Variable | Customer Churn |
+
+Both models were evaluated using the same testing dataset.
+
+### 5. Evaluation Metrics
+
+The following metrics were used:
+
+**Accuracy:** Measures the overall percentage of correct predictions.
+
+**Precision:** Measures how many predicted churn customers actually churned.
+
+**Recall:** Measures how many actual churn customers were correctly identified.
+
+**F1-Score:** Provides a balance between precision and recall.
+
+**ROC-AUC:** Measures the model's ability to distinguish between churn and non-churn customers.
+
+**Average Precision (AP):** Summarizes performance across different precision-recall thresholds.
+
+### 6. Model Evaluation Results
+
+The following results were obtained during testing:
+
+| Metric | Logistic Regression | Linear SVM |
+|---|---:|---:|
+| Accuracy | 82.50% | 82.40% |
+| Precision | 55.88% | 66.67% |
+| Recall | 10.61% | 3.35% |
+| F1-Score | 17.84% | 6.38% |
+| ROC-AUC | 72.47% | 72.35% |
+| Average Precision | 40.18% | 39.98% |
+
+### 7. Evaluation Visualizations
+
+All six evaluation diagrams were generated and saved in the `results/` directory.
+
+#### 7.1 Logistic Regression – Confusion Matrix
+
+![Logistic Regression Confusion Matrix](results/logistic_confusion_matrix.png)
+
+#### 7.2 Linear SVM – Confusion Matrix
+
+![Linear SVM Confusion Matrix](results/svm_confusion_matrix.png)
+
+#### 7.3 Model Performance Comparison
+
+![Model Performance Comparison](results/model_performance_comparison.png)
+
+#### 7.4 Classification Report Heatmap
+
+![Classification Report Heatmap](results/classification_report_heatmap.png)
+
+#### 7.5 ROC Curve Comparison
+
+![ROC Curve Comparison](results/roc_curve_comparison.png)
+
+#### 7.6 Precision-Recall Curve Comparison
+
+![Precision Recall Curve Comparison](results/precision_recall_curve_comparison.png)
+
+### 8. Results Analysis
+
+Based on the evaluation results:
+
+- Logistic Regression achieved 82.50% accuracy.
+- Linear SVM achieved 82.40% accuracy.
+- Linear SVM achieved higher precision (66.67%).
+- Logistic Regression achieved higher recall (10.61%).
+- Logistic Regression achieved a higher F1-score (17.84%).
+- Both models achieved similar ROC-AUC and Average Precision scores.
+
+**Important Observation:**
+
+Although both models achieved approximately 82% accuracy, their recall scores were very low.
+
+This indicates that both models missed a significant number of actual churn customers.
+
+This may be related to class imbalance in the dataset and requires further investigation.
+
+Therefore, accuracy alone is not sufficient to determine the best churn prediction model.
+
+### 9. Project Structure
+
+```text
+citynet-churn/
+│
+├── data/
+│
+├── models/
+│   ├── logistic_model.joblib
+│   └── svm_model.joblib
+│
+├── src/
+│   ├── data_preprocessing.py
+│   └── 04_model_evaluation.py
+│
+├── results/
+│   ├── logistic_confusion_matrix.png
+│   ├── svm_confusion_matrix.png
+│   ├── model_performance_comparison.png
+│   ├── classification_report_heatmap.png
+│   ├── roc_curve_comparison.png
+│   └── precision_recall_curve_comparison.png
+│
+├── requirements.txt
+└── README.md
+```
+
+### 10. How to Run
+
+**Step 1: Activate the virtual environment**
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+**Step 2: Install dependencies**
+
+```powershell
+pip install -r requirements.txt
+```
+
+**Step 3: Run Lab 4**
+
+```powershell
+python src/04_model_evaluation.py
+```
+
+The evaluation results will be displayed in the terminal, and all six diagrams will be saved automatically in the `results/` directory.
+
+**Note:** Lab 4 requires the trained model files from Lab 3 and the preprocessing module from Lab 2.
+
+### 11. Conclusion
+
+In this lab, Logistic Regression and Linear SVM were evaluated using multiple classification metrics and visualizations.
+
+Both models demonstrated similar overall accuracy and ROC-AUC performance. However, their low recall scores indicate that churn detection needs further improvement.
+
+The evaluation results provide a foundation for the next stage of the project.
+
+### 12. Next Steps
+
+**Lab 5 – Model Experiments and Comparison**
+
+The next lab will focus on:
+
+- Investigating class imbalance.
+- Experimenting with model configurations.
+- Exploring techniques to improve churn detection.
+- Comparing model performance.
+- Identifying a suitable model for customer churn prediction.
+
+---
+
+**Project:** CityNet Customer Churn Prediction  
+**Lab:** 04 – Model Evaluation  
+**Status:** Completed
 
 ## 7. How to Run
 
