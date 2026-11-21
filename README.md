@@ -98,7 +98,49 @@ In this lab, we prepared the dataset for machine learning.
 
 The preprocessing pipeline was fitted on training data and applied to testing data to avoid data leakage.
 
-## 6. How to Run
+
+## 6. Lab 3 – Model Training
+
+### Objective
+Train machine learning models to predict customer churn.
+
+### Models Used
+
+1. Logistic Regression
+   - Used as the baseline model.
+   - Trained with numerical feature scaling.
+
+2. Linear Support Vector Machine (SVM)
+   - Used as the main candidate model.
+   - Trained with numerical feature scaling.
+
+### Training Setup
+
+- Dataset: 5,000 customer records
+- Training data: 80% (4,000 records)
+- Testing data: 20% (1,000 records)
+- Random state: 42
+- Stratified train-test split
+- Missing values handled using imputation.
+- Categorical features encoded using One-Hot Encoding.
+- Numerical features scaled using StandardScaler.
+- Scikit-learn Pipelines used for preprocessing and model training.
+
+### Training Results
+
+- Logistic Regression: Successfully trained.
+- Linear SVM: Successfully trained.
+
+### Important Note
+
+Both models use the same training and testing split.
+
+Each model has its own preprocessing pipeline.
+
+Model performance evaluation will be performed in Lab 4.
+
+
+## 7. How to Run
 
 Install the required dependencies:
 
@@ -122,7 +164,7 @@ The prediction script writes results to:
 
 `reports/predictions.csv`
 
-## 7. Model Results
+## 8. Model Results
 
 Model performance will be documented after training and evaluation.
 
@@ -131,26 +173,26 @@ Model performance will be documented after training and evaluation.
 | PR-AUC | Pending | Pending |
 | Churners in Top 100 | Pending | Pending |
 
-## 8. Intended Use
+## 9. Intended Use
 
 The model is intended to help the customer retention team prioritize customers who may be at risk of leaving the service.
 
 Predictions should support human decision-making and customer outreach.
 
-## 9. Not for
+## 10. Not for
 
 - Automatically cancelling customer accounts.
 - Making final business decisions without human review.
 - Treating predictions as guaranteed outcomes.
 
-## 10. Assumptions
+## 11. Assumptions
 
 - Historical customer information can help identify churn patterns.
 - Customer features are available before the prediction date.
 - The target variable represents customer churn.
 - Predictions are used to prioritize retention efforts.
 
-## 11. Risks and Limitations
+## 12. Risks and Limitations
 
 - Missing values may affect model performance.
 - Historical patterns may change over time.
