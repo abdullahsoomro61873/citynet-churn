@@ -140,18 +140,19 @@ citynet-churn/
 ├── src/
 |   ├── 01_data_inspection.py
 │   ├── data_preprocessing.py
+|   ├── 03_model_training.py
 │   ├── 04_model_evaluation.py
 │   ├── 05_model_experiments.py
 │   ├── 06_business_evaluation.py
 │   └── 07_new_customer_predictions.py
 │
-|
+├── .venv/
 ├── .gitignore
+├── DATA.md
 ├── requirements.txt
 └── README.md
 ```
-
-**Note:** The structure highlights the main documented files and outputs. Additional scripts or configuration files may exist in the repository.
+**Note:** The structure highlights the main documented files and outputs, including `DATA.md`. Additional scripts or configuration files may exist in the repository.
 
 ## 9. Project Methodology
 
