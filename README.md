@@ -386,6 +386,140 @@ This lab demonstrated that accuracy alone is not sufficient for evaluating model
 
 **Next:** Lab 6 – Business Evaluation: Identifying the Top 100 High-Risk Customers and evaluating a customer retention strategy.
 
+# Lab 6 – Business Evaluation & Retention Strategy
+
+## 1. Overview
+
+In this lab, the selected machine learning model was used to identify high-risk customers and convert churn predictions into actionable business retention strategies.
+
+The main objective was to identify customers who are likely to churn, recommend suitable retention actions, and estimate the potential financial benefits of customer retention.
+
+## 2. Selected Machine Learning Model
+
+**Selected Model:** Linear Support Vector Machine (Linear SVM)
+
+Configuration:
+- C = 1
+- class_weight = balanced
+
+The selected model was used to generate churn risk scores and rank customers according to their predicted risk.
+
+## 3. Business Evaluation
+
+The model was evaluated on 1,000 test customers.
+
+The top 100 customers with the highest churn risk scores were selected for business evaluation.
+
+| Metric | Result |
+|---|---:|
+| Test Customers | 1,000 |
+| High-Risk Customers Selected | 100 |
+| Actual Churners in Top 100 | 51 |
+| Non-Churners in Top 100 | 49 |
+| Precision@100 | 51% |
+
+**Business Interpretation:**
+
+Out of the top 100 highest-risk customers, 51 were actual churners.
+
+Precision@100 of 51% means that 51 out of every 100 customers selected by the model were actual churners in the test dataset.
+
+## 4. Retention Strategy Design
+
+The retention strategy was designed for the 49 active customers identified among the top 100 high-risk customers.
+
+Four retention actions were recommended:
+
+| Retention Action | Customers |
+|---|---:|
+| Service Recovery | 17 |
+| Special Discount Offer | 14 |
+| Priority Customer Support | 12 |
+| Loyalty Offer | 6 |
+| **Total** | **49** |
+
+Already churned customers were excluded from retention action assignment.
+
+## 5. Business Impact Analysis
+
+The potential financial impact was estimated using the following business assumptions.
+
+### Business Assumptions
+
+| Parameter | Value |
+|---|---:|
+| Discount Rate | 10% |
+| Discount Duration | 3 Months |
+| Expected Retention Rate | 30% |
+| Retained Revenue Period | 6 Months |
+| Gross Margin | 60% |
+
+### Financial Results
+
+| Metric | Estimated Value |
+|---|---:|
+| Potential Retention Targets | 49 |
+| Average Monthly Bill | 4,765.92 |
+| Expected Retained Customers | 14.70 |
+| Expected Saved Revenue | 420,354.00 |
+| Expected Gross Contribution | 252,212.40 |
+| Estimated Discount Cost | 21,017.70 |
+| **Estimated Net Business Benefit** | **231,194.70** |
+
+**Business Interpretation:**
+
+Based on the assumed 30% retention rate, approximately 14.7 customers could potentially be retained.
+
+After accounting for estimated discount costs, the projected net business benefit is 231,194.70.
+
+These figures represent estimated business impact based on assumptions, not actual realized revenue or profit.
+
+## 6. Generated Output
+
+The business evaluation generated the following CSV report:
+
+`results/top_100_high_risk_customers.csv`
+
+The report contains 100 high-risk customers and 10 columns:
+
+- risk_rank
+- customer_id
+- actual_churn
+- risk_score
+- monthly_bill
+- support_calls_90d
+- outage_hours_90d
+- tenure_months
+- paid_late_last_bill
+- retention_action
+
+### CSV Verification
+
+- Total records: 100
+- Total columns: 10
+- Customers with retention actions: 49
+- Customers without retention actions: 51
+- Missing retention actions among active customers: 0
+
+## 7. Key Learning Outcomes
+
+Through this lab, the following concepts were implemented:
+
+- Business-oriented model evaluation.
+- Customer churn risk ranking.
+- Top-N customer identification.
+- Precision@100 calculation.
+- Retention strategy recommendation.
+- Financial impact estimation.
+- Translating machine learning predictions into business decisions.
+
+## 8. Conclusion
+
+Lab 6 successfully connected machine learning predictions with practical business decisions.
+
+The selected Linear SVM model identified the top 100 high-risk customers. A retention strategy was designed for 49 active high-risk customers, and the estimated net business benefit was calculated as 231,194.70.
+
+This demonstrates how customer churn prediction can support proactive customer retention and data-driven business planning.
 
 ### 10. How to Run
 
