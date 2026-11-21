@@ -98,19 +98,18 @@ In this lab, we prepared the dataset for machine learning.
 
 The preprocessing pipeline was fitted on training data and applied to testing data to avoid data leakage.
 
-
-## 6. Lab 3 – Model Training
+## 6. Lab 3 – Model Training and Saving
 
 ### Objective
-Train machine learning models to predict customer churn.
+Train machine learning models to predict customer churn and save trained models for future evaluation and predictions.
 
 ### Models Used
 
-1. Logistic Regression
+1. **Logistic Regression**
    - Used as the baseline model.
    - Trained with numerical feature scaling.
 
-2. Linear Support Vector Machine (SVM)
+2. **Linear Support Vector Machine (SVM)**
    - Used as the main candidate model.
    - Trained with numerical feature scaling.
 
@@ -131,13 +130,28 @@ Train machine learning models to predict customer churn.
 - Logistic Regression: Successfully trained.
 - Linear SVM: Successfully trained.
 
+### Model Saving
+
+Both trained models were saved using the Joblib library.
+
+Saved model files:
+
+```text
+models/
+├── logistic_model.joblib
+└── svm_model.joblib
+```
+
+- Complete preprocessing and model pipelines were saved.
+- Models can be loaded later without retraining.
+- Saved models will be used for future evaluation and predictions.
+
 ### Important Note
 
-Both models use the same training and testing split.
-
-Each model has its own preprocessing pipeline.
-
-Model performance evaluation will be performed in Lab 4.
+- Both models use the same training and testing split.
+- Each model has its own preprocessing pipeline.
+- Model performance evaluation will be performed in Lab 4.
+- Final model selection will be based on evaluation and comparison results.
 
 
 ## 7. How to Run

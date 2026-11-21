@@ -6,6 +6,9 @@
 
 # A. Import required libraries
 
+from pathlib import Path
+import joblib
+
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
@@ -75,14 +78,46 @@ svm_model.fit(X_train, y_train)
 print("Linear SVM training completed!")
 
 
-# G. Final training summary
+# G. Save trained models
+
+print("\n========== SAVING MODELS ==========")
+
+# Create models folder in project root
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+MODELS_DIR = PROJECT_DIR / "models"
+
+# Create folder automatically if it does not exist
+MODELS_DIR.mkdir(parents=True, exist_ok=True)
+
+# Save complete Logistic Regression pipeline
+joblib.dump(
+    logistic_model,
+    MODELS_DIR / "logistic_model.joblib"
+)
+
+print("Logistic Regression model saved successfully!")
+
+# Save complete Linear SVM pipeline
+joblib.dump(
+    svm_model,
+    MODELS_DIR / "svm_model.joblib"
+)
+
+print("Linear SVM model saved successfully!")
+
+
+# H. Final training summary
 
 print("\n========== LAB 3 SUMMARY ==========")
 
-print("Logistic Regression: Trained successfully")
-print("Linear SVM: Trained successfully")
+print("Logistic Regression: Trained and saved")
+print("Linear SVM: Trained and saved")
 
 print("\nTraining records:", len(X_train))
 print("Testing records:", len(X_test))
+
+print("\nSaved model files:")
+print("models/logistic_model.joblib")
+print("models/svm_model.joblib")
 
 print("\nLab 3 completed successfully!")
