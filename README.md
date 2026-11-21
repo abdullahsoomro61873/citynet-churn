@@ -1,109 +1,229 @@
-# CityNet Customer Churn Prediction
+# CityNet Customer Churn Prediction & Retention Call List
+
+A machine learning project using Linear Support Vector Machine (SVM) to identify customers at risk of leaving a telecommunications service and prioritize retention calls.
 
 ## 1. Project Overview
 
-CityNet Customer Churn Prediction is a machine learning project that aims to identify customers who are likely to leave a telecom service.
+CityNet Customer Churn Prediction is a machine learning project designed to identify telecommunications customers who are likely to cancel their subscriptions.
 
-The goal is to help the customer retention team identify high-risk customers and prioritize them for follow-up calls.
+The project uses historical customer data to train and evaluate machine learning models, rank customers according to their churn risk, and generate a prioritized retention call list.
 
-## 2. User Story
+The main candidate model is a tuned Linear Support Vector Machine (SVM). Its predictions help the retention team identify high-risk customers and prioritize customer outreach.
 
-As a retention manager, I want a weekly list of the 100 customers most likely to cancel their service next month so that my team can contact them first.
+## 2. Problem Statement
 
-## 3. Dataset Overview
+CityNet, a telecommunications service provider, wants to identify customers who are likely to cancel their subscriptions in the coming month.
 
-The project uses a customer churn dataset containing:
+The retention team can contact only 100 customers per week. The company's existing Logistic Regression model identifies approximately 49 customers likely to leave among every 100 selected calls.
 
-- **Total records:** 5,000 customers
-- **Total columns:** 14
-- **Target variable:** `churned`
-- **Prediction target:** Whether a customer leaves the service.
+The objective is to develop and evaluate a Linear SVM model that ranks customers according to their churn risk.
 
-Target variable values:
+The project compares the SVM model with the Logistic Regression baseline, identifies the 100 highest-risk customers, investigates factors associated with churn, and evaluates potential customer retention strategies.
 
-- `0` – Customer did not leave.
-- `1` – Customer left the service.
+The model supports informed customer outreach. It does not automatically cancel, penalize, or modify customer subscriptions.
 
-## 4. Lab 1 – Dataset Understanding and EDA
+## 3. Project Objectives
 
-In this lab, we explored the dataset to understand its structure, quality, and customer churn patterns.
+- Understand customer data and identify churn patterns.
+- Perform data cleaning and preprocessing.
+- Train Logistic Regression and Linear SVM models.
+- Evaluate models using appropriate classification metrics.
+- Improve churn detection through model experimentation and hyperparameter tuning.
+- Identify the top 100 highest-risk customers.
+- Evaluate potential customer retention strategies and financial impact.
+- Save the selected model pipeline for future predictions.
+- Generate churn predictions for new customers.
 
-### Tasks Completed
+## 4. User Story
 
-- Loaded and inspected the dataset.
-- Checked dataset dimensions and column names.
-- Reviewed data types and missing values.
-- Generated statistical summaries.
-- Analyzed the target variable.
-- Explored categorical and numerical features.
-- Performed final data quality checks.
+As a customer retention manager, I want a weekly list of the 100 customers most likely to cancel their subscriptions so that my team can prioritize retention calls and take appropriate action.
+
+## 5. Project Roadmap
+
+The project was completed through eight stages, from environment setup to generating predictions for new customers.
+
+| Lab | Description | Status |
+|---|---|---|
+| Lab 0 | GitHub & Environment Setup | Completed |
+| Lab 1 | Dataset Understanding & Exploratory Data Analysis | Completed |
+| Lab 2 | Data Preprocessing | Completed |
+| Lab 3 | SVM Model Training | Completed |
+| Lab 4 | Model Evaluation | Completed |
+| Lab 5 | Model Improvement & Comparison | Completed |
+| Lab 6 | Business Evaluation & Retention Strategy | Completed |
+| Lab 7 | Model Saving & New Customer Prediction | Completed |
+
+## 6. Dataset Overview
+
+The project uses a telecommunications customer churn dataset containing historical customer information and service-related features.
+
+| Description | Value |
+|---|---:|
+| Total Records | 5,000 |
+| Total Columns | 14 |
+| Unique Customers | 5,000 |
+| Duplicate Customer IDs | 0 |
+| Target Variable | `churned` |
+| Missing Values | Present in 2 columns |
+
+### Target Variable
+
+The target variable is `churned`, which indicates whether a customer left the service.
+
+| Value | Meaning |
+|---|---|
+| 0 | Customer did not leave |
+| 1 | Customer left |
 
 ### Data Quality Findings
 
-| Column | Missing Values |
-|---|---:|
-| `age` | 411 (8.22%) |
-| `payment_method` | 149 (2.98%) |
-| Other columns | 0 |
+Two columns contained missing values:
 
-Additional checks:
+| Column | Missing Values | Percentage |
+|---|---:|---:|
+| `age` | 411 | 8.22% |
+| `payment_method` | 149 | 2.98% |
+| Other columns | 0 | 0% |
 
-- Total unique customer IDs: 5,000
-- Duplicate customer IDs: 0
+Missing values were handled during preprocessing using median and mode imputation.
 
-Missing values will be handled during the preprocessing stage.
+### Important Feature Considerations
 
-### Key Findings
+- `customer_id` was removed because it is an identifier rather than a predictive feature.
+- `cancel_request_logged` was excluded because it has a strong association with churn and could introduce data leakage.
 
-1. The overall customer churn rate is **17.92%**.
-2. The Central region has the highest churn rate at **21.21%**.
-3. The Fiber 100 plan has the highest churn rate at **21.23%**.
-4. Customers using cash payment have the highest churn rate at **27.79%**.
-5. Churned customers have a lower average tenure (26.43 months) than non-churned customers (39.43 months).
-6. Churned customers also have higher average support calls and outage hours.
-7. The `cancel_request_logged` feature has a strong association with churn and needs to be reviewed for potential data leakage.
+After removing these two columns, 11 input features remained for model training.
 
-**Note:** These findings show associations in the dataset. They do not prove that a particular factor directly causes customer churn.
+## 7. Technologies Used
 
-## 5. Lab 2 – Data Preprocessing
+The project was developed using the following technologies and libraries.
 
-In this lab, we prepared the dataset for machine learning.
+| Technology | Purpose |
+|---|---|
+| Python | Programming language |
+| Pandas | Data manipulation and analysis |
+| NumPy | Numerical operations |
+| Scikit-learn | Data preprocessing and machine learning |
+| Matplotlib | Data visualization |
+| Seaborn | Statistical visualization |
+| Joblib | Saving and loading trained models |
+| Git | Version control |
+| GitHub | Source code management |
 
-### Tasks Completed
+## 8. Project Structure
 
-- Separated features and target variable.
-- Removed customer_id and cancel_request_logged.
+The project is organized into separate directories for datasets, source code, trained models, and generated results.
+
+```text
+citynet-churn/
+│
+├── data/
+│   ├── citynet_churn.csv
+│   └── new_customers.csv
+│
+├── models/
+│   ├── logistic_model.joblib
+│   ├── svm_model.joblib
+│   └── selected_linear_svm.joblib
+│
+├── results/
+│   ├── logistic_confusion_matrix.png
+│   ├── svm_confusion_matrix.png
+│   ├── model_performance_comparison.png
+│   ├── classification_report_heatmap.png
+│   ├── roc_curve_comparison.png
+│   ├── precision_recall_curve_comparison.png
+│   ├── model_comparison.csv
+│   ├── top_100_high_risk_customers.csv
+│   └── new_customer_predictions.csv
+│
+├── src/
+|   ├── 01_data_inspection.py
+│   ├── data_preprocessing.py
+│   ├── 04_model_evaluation.py
+│   ├── 05_model_experiments.py
+│   ├── 06_business_evaluation.py
+│   └── 07_new_customer_predictions.py
+│
+|
+├── .gitignore
+├── requirements.txt
+└── README.md
+```
+
+**Note:** The structure highlights the main documented files and outputs. Additional scripts or configuration files may exist in the repository.
+
+## 9. Project Methodology
+
+The project follows a structured machine learning workflow consisting of data exploration, preprocessing, model training, evaluation, improvement, business analysis, and prediction.
+
+### Lab 1 – Dataset Understanding & Exploratory Data Analysis
+
+**Objective:** Understand the dataset, examine data quality, and identify customer churn patterns.
+
+**Tasks Completed:**
+
+- Loaded and inspected the dataset.
+- Examined dataset dimensions and column names.
+- Reviewed data types and missing values.
+- Generated statistical summaries.
+- Analyzed the target variable distribution.
+- Explored categorical and numerical features.
+- Performed final data quality checks.
+
+**Key Findings:**
+
+1. Overall customer churn rate: 17.92%.
+2. Central region had the highest churn rate: 21.21%.
+3. Fiber 100 plan had the highest churn rate: 21.23%.
+4. Customers using cash payment had the highest churn rate: 27.79%.
+5. Churned customers had a lower average tenure (26.43 months) than non-churned customers (39.43 months).
+6. Churned customers also had higher average support calls and outage hours.
+7. `cancel_request_logged` showed a strong association with churn and required leakage investigation.
+
+These findings represent associations in the dataset and do not establish direct causes of customer churn.
+
+### Lab 2 – Data Preprocessing
+
+**Objective:** Prepare customer data for machine learning.
+
+**Tasks Completed:**
+
+- Separated input features and target variable.
+- Removed `customer_id` and `cancel_request_logged`.
 - Identified numerical and categorical features.
-- Split data into training (80%) and testing (20%).
-- Handled missing values using median and mode.
-- Converted categorical features using One-Hot Encoding.
+- Split the dataset into training and testing sets.
+- Handled missing values using median and mode imputation.
+- Encoded categorical variables using One-Hot Encoding.
 - Scaled numerical features using StandardScaler.
-- Used pipelines to organize preprocessing steps.
+- Organized preprocessing steps using Scikit-learn pipelines.
 
-### Data Splitting Results
+**Data Splitting:**
 
-| Dataset | Records |
-|---|---:|
-| Training | 4,000 (80%) |
-| Testing | 1,000 (20%) |
+| Dataset | Records | Percentage |
+|---|---:|---:|
+| Training | 4,000 | 80% |
+| Testing | 1,000 | 20% |
+| Total | 5,000 | 100% |
 
-### Preprocessing Results
+**Preprocessing Results:**
 
 | Description | Result |
 |---|---:|
-| Original Features | 11 |
+| Original Dataset Columns | 14 |
+| Removed Columns | 2 |
+| Original Input Features | 11 |
 | Processed Features | 22 |
 | Training Churners | 717 |
 | Testing Churners | 179 |
 
-The preprocessing pipeline was fitted on training data and applied to testing data to avoid data leakage.
+The preprocessing pipeline was fitted on training data and applied to testing data to prevent data leakage.
 
-## 6. Lab 3 – Model Training and Saving
+### Lab 3 – Model Training
 
-### Objective
-Train machine learning models to predict customer churn and save trained models for future evaluation and predictions.
+**Objective:** Train machine learning models to predict customer churn.
 
-### Models Used
+**Models Trained:**
 
 1. **Logistic Regression**
    - Used as the baseline model.
@@ -113,28 +233,21 @@ Train machine learning models to predict customer churn and save trained models 
    - Used as the main candidate model.
    - Trained with numerical feature scaling.
 
-### Training Setup
+**Training Configuration:**
 
-- Dataset: 5,000 customer records
-- Training data: 80% (4,000 records)
-- Testing data: 20% (1,000 records)
-- Random state: 42
-- Stratified train-test split
-- Missing values handled using imputation.
-- Categorical features encoded using One-Hot Encoding.
-- Numerical features scaled using StandardScaler.
-- Scikit-learn Pipelines used for preprocessing and model training.
+- Dataset: 5,000 customer records.
+- Training data: 80%.
+- Testing data: 20%.
+- Random state: 42.
+- Stratified train-test split.
+- Missing-value imputation.
+- One-Hot Encoding.
+- StandardScaler.
+- Scikit-learn Pipelines.
 
-### Training Results
+**Model Saving:**
 
-- Logistic Regression: Successfully trained.
-- Linear SVM: Successfully trained.
-
-### Model Saving
-
-Both trained models were saved using the Joblib library.
-
-Saved model files:
+Both initial trained models were saved using Joblib.
 
 ```text
 models/
@@ -142,81 +255,28 @@ models/
 └── svm_model.joblib
 ```
 
-- Complete preprocessing and model pipelines were saved.
-- Models can be loaded later without retraining.
-- Saved models will be used for future evaluation and predictions.
+The saved files contain their respective preprocessing and classification pipelines.
 
-### Important Note
+Model performance was evaluated in Lab 4.
 
-- Both models use the same training and testing split.
-- Each model has its own preprocessing pipeline.
-- Model performance evaluation will be performed in Lab 4.
-- Final model selection will be based on evaluation and comparison results.
+### Lab 4 – Model Evaluation
 
-# Lab 4 – Model Evaluation
+**Objective:** Evaluate Logistic Regression and Linear SVM using multiple classification metrics.
 
-## CityNet Customer Churn Prediction
+Both models were evaluated using the same testing dataset containing 1,000 customers.
 
-### 1. Overview
+**Evaluation Metrics:**
 
-Lab 4 focuses on evaluating two trained Machine Learning models:
-
-- Logistic Regression
-- Linear Support Vector Machine (SVM)
-
-The purpose of this lab is to measure model performance using different classification metrics and visualizations.
-
-Both models are evaluated using the same testing dataset containing 1,000 customer records.
-
-### 2. Objectives
-
-- Load previously trained Machine Learning models.
-- Generate predictions on testing data.
-- Calculate classification evaluation metrics.
-- Generate and analyze confusion matrices.
-- Compare model performance.
-- Visualize classification reports using heatmaps.
-- Evaluate models using ROC and Precision-Recall curves.
-- Save evaluation diagrams for future reference.
-
-### 3. Models Evaluated
-
-| Model | Description |
+| Metric | Description |
 |---|---|
-| Logistic Regression | A classification algorithm used to predict customer churn. |
-| Linear SVM | A Support Vector Machine classifier used to distinguish churn and non-churn customers. |
+| Accuracy | Overall percentage of correct predictions. |
+| Precision | Percentage of predicted churners who actually churned. |
+| Recall | Percentage of actual churners correctly identified. |
+| F1-Score | Harmonic balance between precision and recall. |
+| ROC-AUC | Measures the model's ability to distinguish between the two classes. |
+| Average Precision (AP) | Summarizes precision-recall performance across classification thresholds. |
 
-### 4. Dataset Information
-
-| Description | Value |
-|---|---:|
-| Total Records | 5,000 |
-| Total Features | 11 |
-| Training Records | 4,000 |
-| Testing Records | 1,000 |
-| Target Variable | Customer Churn |
-
-Both models were evaluated using the same testing dataset.
-
-### 5. Evaluation Metrics
-
-The following metrics were used:
-
-**Accuracy:** Measures the overall percentage of correct predictions.
-
-**Precision:** Measures how many predicted churn customers actually churned.
-
-**Recall:** Measures how many actual churn customers were correctly identified.
-
-**F1-Score:** Provides a balance between precision and recall.
-
-**ROC-AUC:** Measures the model's ability to distinguish between churn and non-churn customers.
-
-**Average Precision (AP):** Summarizes performance across different precision-recall thresholds.
-
-### 6. Model Evaluation Results
-
-The following results were obtained during testing:
+**Model Evaluation Results:**
 
 | Metric | Logistic Regression | Linear SVM |
 |---|---:|---:|
@@ -227,188 +287,115 @@ The following results were obtained during testing:
 | ROC-AUC | 72.47% | 72.35% |
 | Average Precision | 40.18% | 39.98% |
 
-### 7. Evaluation Visualizations
+**Evaluation Analysis:**
 
-All six evaluation diagrams were generated and saved in the `results/` directory.
+- Both models achieved approximately 82% accuracy.
+- Linear SVM achieved higher precision.
+- Logistic Regression achieved higher recall and F1-score.
+- Both models demonstrated similar ROC-AUC and Average Precision scores.
+- Both models had very low recall, indicating that many actual churners were missed.
 
-#### 7.1 Logistic Regression – Confusion Matrix
+Accuracy alone was not sufficient to determine the best model, especially because the dataset had an imbalanced target distribution.
+
+**Evaluation Visualizations:**
+
+The following diagrams were generated and saved in the `results/` directory.
+
+**Logistic Regression Confusion Matrix**
 
 ![Logistic Regression Confusion Matrix](results/logistic_confusion_matrix.png)
 
-#### 7.2 Linear SVM – Confusion Matrix
+**Linear SVM Confusion Matrix**
 
 ![Linear SVM Confusion Matrix](results/svm_confusion_matrix.png)
 
-#### 7.3 Model Performance Comparison
+**Model Performance Comparison**
 
 ![Model Performance Comparison](results/model_performance_comparison.png)
 
-#### 7.4 Classification Report Heatmap
+**Classification Report Heatmap**
 
 ![Classification Report Heatmap](results/classification_report_heatmap.png)
 
-#### 7.5 ROC Curve Comparison
+**ROC Curve Comparison**
 
 ![ROC Curve Comparison](results/roc_curve_comparison.png)
 
-#### 7.6 Precision-Recall Curve Comparison
+**Precision-Recall Curve Comparison**
 
-![Precision Recall Curve Comparison](results/precision_recall_curve_comparison.png)
+![Precision-Recall Curve Comparison](results/precision_recall_curve_comparison.png)
 
-### 8. Results Analysis
+### Lab 5 – Model Improvement & Comparison
 
-Based on the evaluation results:
-
-- Logistic Regression achieved 82.50% accuracy.
-- Linear SVM achieved 82.40% accuracy.
-- Linear SVM achieved higher precision (66.67%).
-- Logistic Regression achieved higher recall (10.61%).
-- Logistic Regression achieved a higher F1-score (17.84%).
-- Both models achieved similar ROC-AUC and Average Precision scores.
-
-**Important Observation:**
-
-Although both models achieved approximately 82% accuracy, their recall scores were very low.
-
-This indicates that both models missed a significant number of actual churn customers.
-
-This may be related to class imbalance in the dataset and requires further investigation.
-
-Therefore, accuracy alone is not sufficient to determine the best churn prediction model.
-
-### 9. Project Structure
-
-```text
-citynet-churn/
-│
-├── data/
-│
-├── models/
-│   ├── logistic_model.joblib
-│   └── svm_model.joblib
-│
-├── src/
-│   ├── data_preprocessing.py
-│   └── 04_model_evaluation.py
-│
-├── results/
-│   ├── logistic_confusion_matrix.png
-│   ├── svm_confusion_matrix.png
-│   ├── model_performance_comparison.png
-│   ├── classification_report_heatmap.png
-│   ├── roc_curve_comparison.png
-│   └── precision_recall_curve_comparison.png
-│
-├── requirements.txt
-└── README.md
-```
-**Lab 5 – Model Experiments and Comparison**
-
-The next lab will focus on:
-
-- Investigating class imbalance.
-- Experimenting with model configurations.
-- Exploring techniques to improve churn detection.
-- Comparing model performance.
-- Identifying a suitable model for customer churn prediction.
-
----
-
-**Project:** CityNet Customer Churn Prediction  
-**Lab:** 04 – Model Evaluation  
-**Status:** Completed
-
-## Lab 5 – Model Improvement & Comparison
-
-### Objective
-The objective of Lab 5 was to improve customer churn prediction by experimenting with different machine learning models and comparing their performance using multiple evaluation metrics.
-
-### Models Experimented
+**Objective:** Improve customer churn detection through model experimentation, class balancing, and hyperparameter tuning.
 
 Five model configurations were evaluated:
 
 1. Logistic Regression – Baseline model.
 2. Linear SVM with Feature Scaling.
 3. Linear SVM without Feature Scaling.
-4. Random Forest with class balancing.
+4. Random Forest with Class Balancing.
 5. Tuned Linear SVM using GridSearchCV.
 
-### Hyperparameter Tuning
+**Hyperparameter Tuning:**
 
-GridSearchCV was used to find the best Linear SVM parameters.
+GridSearchCV was used to identify suitable Linear SVM hyperparameters.
 
-- Best C: `1`
-- Best class_weight: `balanced`
-- Cross-validation: `5-fold StratifiedKFold`
-- Best Cross-Validation F1-score: `0.4262`
+| Parameter | Selected Value |
+|---|---|
+| C | 1 |
+| class_weight | balanced |
+| Cross-validation | 5-fold StratifiedKFold |
+| Best Cross-validation F1-score | 0.4262 |
 
-### Model Comparison Results
+**Model Comparison Results:**
 
 | Model | Accuracy | Precision | Recall | F1-Score | PR-AUC (AP) |
 |---|---:|---:|---:|---:|---:|
-| Logistic Regression | 0.8250 | 0.5588 | 0.1061 | 0.1784 | **0.4018** |
+| Logistic Regression | 0.8250 | 0.5588 | 0.1061 | 0.1784 | 0.4018 |
 | Linear SVM (Scaled) | 0.8240 | 0.6667 | 0.0335 | 0.0638 | 0.3998 |
 | Linear SVM (Unscaled) | 0.8250 | 0.7500 | 0.0335 | 0.0642 | 0.3953 |
 | Random Forest | 0.7830 | 0.3443 | 0.2346 | 0.2791 | 0.3183 |
-| Tuned Linear SVM | 0.6660 | 0.2966 | **0.6313** | **0.4036** | 0.4014 |
+| Tuned Linear SVM | 0.6660 | 0.2966 | 0.6313 | 0.4036 | 0.4014 |
 
-### Evaluation Metrics
-
-- **Accuracy:** Overall percentage of correct predictions.
-- **Precision:** How many customers predicted as churners actually churned.
-- **Recall:** How many actual churners the model successfully identified.
-- **F1-Score:** Harmonic balance between Precision and Recall.
-- **PR-AUC (AP):** Measures the model's precision-recall performance across different classification thresholds.
-
-### Final Model Selection
+**Final Model Selection:**
 
 The Tuned Linear SVM was selected as the provisional candidate for business evaluation.
 
 Reasons:
 
-- Highest Recall: `0.6313`
-- Highest F1-Score: `0.4036`
-- PR-AUC (AP): `0.4014`
+- Highest Recall: 0.6313.
+- Highest F1-Score: 0.4036.
+- PR-AUC (AP): 0.4014.
 
-Logistic Regression achieved the highest PR-AUC (AP) of `0.4018`. However, the difference between the two models was very small (`0.0004`).
+Logistic Regression achieved the highest PR-AUC (AP) of 0.4018. However, the difference between the two models was only 0.0004.
 
-Since the business objective is to identify as many potential churn customers as possible, Tuned Linear SVM is the more suitable candidate for the next business evaluation stage.
+Since the primary business objective is to identify as many potential churn customers as possible, Tuned Linear SVM was selected for the next business evaluation stage.
 
-### Output
+**Output:**
 
-Model comparison results are saved in:
+```text
+results/model_comparison.csv
+```
 
-`results/model_comparison.csv`
+### Lab 6 – Business Evaluation & Retention Strategy
 
-### Key Learning
+**Objective:** Convert churn predictions into actionable customer retention strategies and estimate their potential financial impact.
 
-This lab demonstrated that accuracy alone is not sufficient for evaluating models on an imbalanced dataset. Recall, F1-Score, and PR-AUC provide additional insight into churn prediction performance.
+**Selected Model:**
 
-**Next:** Lab 6 – Business Evaluation: Identifying the Top 100 High-Risk Customers and evaluating a customer retention strategy.
+Linear Support Vector Machine (Tuned)
 
-# Lab 6 – Business Evaluation & Retention Strategy
+| Parameter | Value |
+|---|---|
+| C | 1 |
+| class_weight | balanced |
 
-## 1. Overview
+The selected model generated churn risk scores and ranked 1,000 test customers.
 
-In this lab, the selected machine learning model was used to identify high-risk customers and convert churn predictions into actionable business retention strategies.
+**Top 100 High-Risk Customers:**
 
-The main objective was to identify customers who are likely to churn, recommend suitable retention actions, and estimate the potential financial benefits of customer retention.
-
-## 2. Selected Machine Learning Model
-
-**Selected Model:** Linear Support Vector Machine (Linear SVM)
-
-Configuration:
-- C = 1
-- class_weight = balanced
-
-The selected model was used to generate churn risk scores and rank customers according to their predicted risk.
-
-## 3. Business Evaluation
-
-The model was evaluated on 1,000 test customers.
-
-The top 100 customers with the highest churn risk scores were selected for business evaluation.
+The 100 customers with the highest churn risk scores were selected for business evaluation.
 
 | Metric | Result |
 |---|---:|
@@ -420,15 +407,13 @@ The top 100 customers with the highest churn risk scores were selected for busin
 
 **Business Interpretation:**
 
-Out of the top 100 highest-risk customers, 51 were actual churners.
+Out of the 100 highest-risk customers, 51 were actual churners in the test dataset.
 
-Precision@100 of 51% means that 51 out of every 100 customers selected by the model were actual churners in the test dataset.
+Precision@100 of 51% means that 51 out of every 100 selected customers were actual churners.
 
-## 4. Retention Strategy Design
+**Retention Strategy:**
 
-The retention strategy was designed for the 49 active customers identified among the top 100 high-risk customers.
-
-Four retention actions were recommended:
+Retention actions were designed for the 49 active customers identified among the top 100 high-risk customers.
 
 | Retention Action | Customers |
 |---|---:|
@@ -438,13 +423,13 @@ Four retention actions were recommended:
 | Loyalty Offer | 6 |
 | **Total** | **49** |
 
-Already churned customers were excluded from retention action assignment.
+Customers who had already churned were excluded from retention action assignment.
 
-## 5. Business Impact Analysis
+**Business Impact Analysis:**
 
-The potential financial impact was estimated using the following business assumptions.
+The potential financial impact was estimated using the following assumptions.
 
-### Business Assumptions
+**Business Assumptions:**
 
 | Parameter | Value |
 |---|---:|
@@ -454,7 +439,7 @@ The potential financial impact was estimated using the following business assump
 | Retained Revenue Period | 6 Months |
 | Gross Margin | 60% |
 
-### Financial Results
+**Estimated Financial Results:**
 
 | Metric | Estimated Value |
 |---|---:|
@@ -472,141 +457,79 @@ Based on the assumed 30% retention rate, approximately 14.7 customers could pote
 
 After accounting for estimated discount costs, the projected net business benefit is 231,194.70.
 
-These figures represent estimated business impact based on assumptions, not actual realized revenue or profit.
+These figures are estimates based on business assumptions, not actual realized revenue or profit.
 
-## 6. Generated Output
-
-The business evaluation generated the following CSV report:
-
-`results/top_100_high_risk_customers.csv`
-
-The report contains 100 high-risk customers and 10 columns:
-
-- risk_rank
-- customer_id
-- actual_churn
-- risk_score
-- monthly_bill
-- support_calls_90d
-- outage_hours_90d
-- tenure_months
-- paid_late_last_bill
-- retention_action
-
-### CSV Verification
-
-- Total records: 100
-- Total columns: 10
-- Customers with retention actions: 49
-- Customers without retention actions: 51
-- Missing retention actions among active customers: 0
-
-## 7. Key Learning Outcomes
-
-Through this lab, the following concepts were implemented:
-
-- Business-oriented model evaluation.
-- Customer churn risk ranking.
-- Top-N customer identification.
-- Precision@100 calculation.
-- Retention strategy recommendation.
-- Financial impact estimation.
-- Translating machine learning predictions into business decisions.
-
-## 8. Conclusion
-
-Lab 6 successfully connected machine learning predictions with practical business decisions.
-
-The selected Linear SVM model identified the top 100 high-risk customers. A retention strategy was designed for 49 active high-risk customers, and the estimated net business benefit was calculated as 231,194.70.
-
-This demonstrates how customer churn prediction can support proactive customer retention and data-driven business planning.
-
-# Lab 7 – New Customer Churn Prediction
-
-## 1. Overview
-
-In this lab, we use the saved Linear Support Vector Machine (Linear SVM) model from Lab 6 to predict customer churn for 8 new customers.
-
-The model is loaded from the saved file. It is **not retrained** in this lab.
-
-The objective is to generate churn predictions, calculate customer risk scores, and save the results into a CSV report.
-
-## 2. Objectives
-
-- Load the previously saved Linear SVM pipeline.
-- Load new customer data from a CSV file.
-- Verify that all required features are available.
-- Generate churn predictions using the saved model.
-- Calculate decision scores for customer risk ranking.
-- Save predictions and risk scores into a CSV report.
-- Verify the generated output.
-
-## 3. Project Files
+**Generated Report:**
 
 ```text
-citynet-churn/
-│
-├── data/
-│   ├── citynet_churn.csv
-│   └── new_customers.csv
-│
-├── models/
-│   └── selected_linear_svm.joblib
-│
-├── results/
-│   └── new_customer_predictions.csv
-│
-├── src/
-│   ├── data_preprocessing.py
-│   ├── 06_business_evaluation.py
-│   └── 07_new_customer_predictions.py
-│
-└── README.md
+results/top_100_high_risk_customers.csv
 ```
 
-## 4. Input Dataset
+The report contains 100 customers and 10 columns:
 
-**File:** `data/new_customers.csv`
+- `risk_rank`
+- `customer_id`
+- `actual_churn`
+- `risk_score`
+- `monthly_bill`
+- `support_calls_90d`
+- `outage_hours_90d`
+- `tenure_months`
+- `paid_late_last_bill`
+- `retention_action`
+
+**CSV Verification:**
+
+- Total records: 100.
+- Total columns: 10.
+- Customers with retention actions: 49.
+- Customers without retention actions: 51.
+- Missing retention actions among active customers: 0.
+
+### Lab 7 – Model Saving & New Customer Prediction
+
+**Objective:** Use the saved Linear SVM pipeline to predict churn for new customers without retraining the model.
+
+**Saved Model:**
+
+```text
+models/selected_linear_svm.joblib
+```
+
+The saved Scikit-learn Pipeline contains:
+
+- Numerical feature imputation.
+- Numerical feature scaling.
+- Categorical feature imputation.
+- One-Hot Encoding.
+- Linear SVM classifier.
+
+The complete pipeline ensures that new customer data receives the same preprocessing used during model training.
+
+**Input Dataset:**
+
+```text
+data/new_customers.csv
+```
 
 The dataset contains 8 new customers and 11 input features.
 
-The `customer_id` column is used to identify customers and is not used as a model feature.
+The `customer_id` column is retained for customer identification and is not used as a model feature.
 
-The model uses the same preprocessing pipeline and feature structure that were used during training.
-
-## 5. Saved Model
-
-**Model file:** `models/selected_linear_svm.joblib`
-
-The saved file contains the complete Scikit-learn Pipeline:
-
-- Preprocessing
-- Numerical feature imputation and scaling
-- Categorical feature imputation and encoding
-- Linear SVM classifier
-
-The complete pipeline is loaded using Joblib.
-
-No model retraining is performed in Lab 7.
-
-## 6. Prediction Process
-
-The following steps are performed:
+**Prediction Process:**
 
 1. Verify the input dataset and saved model.
 2. Load the new customer dataset.
 3. Separate customer IDs from model features.
-4. Verify all 11 required features.
+4. Verify all 11 required input features.
 5. Load the saved Linear SVM pipeline.
-6. Generate churn predictions using `predict()`.
+6. Generate predictions using `predict()`.
 7. Generate decision scores using `decision_function()`.
-8. Sort customers by risk score.
-9. Save the results into a CSV file.
-10. Reload and verify the generated CSV report.
+8. Rank customers by churn risk score.
+9. Save predictions into a CSV report.
+10. Reload and verify the generated report.
 
-## 7. Prediction Results
-
-The saved model generated predictions for all 8 customers.
+**New Customer Prediction Results:**
 
 | Customer ID | Churn Prediction | Risk Score |
 |---|---:|---:|
@@ -619,12 +542,12 @@ The saved model generated predictions for all 8 customers.
 | C90003 | 0 | -0.375793 |
 | C90008 | 0 | -0.618889 |
 
-### Prediction Labels
+**Prediction Labels:**
 
-- `1` = Customer predicted to churn.
-- `0` = Customer predicted not to churn.
+- `1` – Customer predicted to churn.
+- `0` – Customer predicted not to churn.
 
-### Risk Score Explanation
+**Risk Score Explanation:**
 
 The Linear SVM `decision_function()` returns decision scores, not probability percentages.
 
@@ -634,36 +557,37 @@ The Linear SVM `decision_function()` returns decision scores, not probability pe
 
 C90001 has the highest churn decision score, followed by C90002.
 
-## 8. Business Findings
+**Business Findings:**
 
-Out of 8 new customers:
+| Prediction | Customers |
+|---|---:|
+| Predicted Churners | 2 |
+| Predicted Non-Churners | 6 |
+| Total Customers | 8 |
 
-- Predicted churners: 2
-- Predicted non-churners: 6
-- Predicted churn rate: 25%
-- Predicted non-churn rate: 75%
+The predicted churn rate was 25%.
 
-### Business Recommendation
+**Business Recommendation:**
 
-The business can prioritize C90001 and C90002 for customer retention activities.
+The retention team can prioritize C90001 and C90002 for customer outreach.
 
-Possible actions include:
+Recommended actions include:
 
 - Contacting high-risk customers.
-- Understanding their service-related complaints.
-- Reviewing their billing and payment experience.
+- Understanding service-related complaints.
+- Reviewing billing and payment experiences.
 - Offering suitable retention plans where appropriate.
 - Monitoring customer satisfaction.
 
-These are model-based predictions and should be reviewed alongside actual customer feedback before taking business action.
+Predictions should be reviewed alongside actual customer feedback before taking business action.
 
-## 9. Output Report
+**Generated Prediction Report:**
 
-**Generated file:**
+```text
+results/new_customer_predictions.csv
+```
 
-`results/new_customer_predictions.csv`
-
-The report contains three columns:
+The CSV report contains three columns:
 
 | Column | Description |
 |---|---|
@@ -671,145 +595,183 @@ The report contains three columns:
 | churn_prediction | Predicted churn class (0 or 1) |
 | risk_score | Linear SVM decision score |
 
-## 10. How to Run Lab 7
+**Final Verification:**
 
-Open PowerShell in the project directory:
+| Verification | Result |
+|---|---:|
+| Total Customers Predicted | 8 |
+| Missing Predictions | 0 |
+| Missing Risk Scores | 0 |
+| Predicted Churners | 2 |
+| Predicted Non-Churners | 6 |
+| CSV File Generated | Yes |
 
-```powershell
-cd D:\citynet-churn
+## 10. Final Model Performance
+
+The final candidate model was selected based on its ability to identify potential churn customers rather than relying on accuracy alone.
+
+**Selected Model:** Tuned Linear Support Vector Machine (SVM)
+
+| Evaluation Metric | Result |
+|---|---:|
+| Accuracy | 66.60% |
+| Precision | 29.66% |
+| Recall | 63.13% |
+| F1-Score | 40.36% |
+| PR-AUC (Average Precision) | 40.14% |
+
+**Why Linear SVM?**
+
+The tuned Linear SVM achieved the highest recall and F1-score among the five evaluated configurations.
+
+Its recall of 63.13% indicates that it identified approximately 63 out of every 100 actual churners in the test dataset at its selected classification threshold.
+
+Although Logistic Regression achieved a slightly higher PR-AUC, the tuned SVM provided a better balance between precision and recall for the project's churn detection objective.
+
+## 11. Business Results Summary
+
+The project translated machine learning predictions into practical customer retention insights.
+
+| Business Metric | Result |
+|---|---:|
+| Test Customers Evaluated | 1,000 |
+| Top High-Risk Customers | 100 |
+| Actual Churners in Top 100 | 51 |
+| Precision@100 | 51% |
+| Active Retention Targets | 49 |
+| Expected Retained Customers | 14.70 |
+| Estimated Net Business Benefit | 231,194.70 |
+
+The selected model demonstrated how churn risk ranking can help a retention team prioritize limited customer outreach resources.
+
+Financial results are projections based on assumptions and should not be interpreted as guaranteed savings.
+
+## 12. How to Run the Project
+
+Follow these steps to set up the project and generate predictions for new customers.
+
+### Prerequisites
+
+- Python 3.x
+- Git
+- Visual Studio Code or another Python IDE
+
+### Step 1 – Clone the Repository
+
+```bash
+git clone https://github.com/abdullahsoomro61873/citynet-churn.git
 ```
 
-Activate the virtual environment:
+Navigate to the project directory:
+
+```bash
+cd citynet-churn
+```
+
+### Step 2 – Create a Virtual Environment
+
+```bash
+python -m venv .venv
+```
+
+### Step 3 – Activate the Virtual Environment
+
+For Windows PowerShell:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
+```
+
+### Step 4 – Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 5 – Generate New Customer Predictions
+
+Make sure the saved model and input dataset are available:
+
+```text
+models/selected_linear_svm.joblib
+data/new_customers.csv
 ```
 
 Run the prediction script:
 
-```powershell
+```bash
 python src/07_new_customer_predictions.py
 ```
 
-The generated report will be saved in the `results` directory.
+The generated report will be saved to:
 
-## 11. Final Verification
-
-The following checks were successfully completed:
-
-| Verification | Result |
-|---|---:|
-| Total customers predicted | 8 |
-| Missing predictions | 0 |
-| Missing risk scores | 0 |
-| Predicted churners | 2 |
-| Predicted non-churners | 6 |
-| CSV file generated | True |
-
-## 12. Conclusion
-
-Lab 7 successfully demonstrated how to use a previously trained and saved Linear SVM pipeline to predict churn for new customers.
-
-The model generated predictions and decision scores for all 8 customers, and the results were successfully saved and verified in a CSV report.
-
-**Lab 7 Status: Completed**
-
-**Project:** CityNet Customer Churn Prediction  
-**Technology:** Python, Pandas, Scikit-learn, Joblib  
-**Model:** Linear Support Vector Machine (Linear SVM)
-
-
-### 10. How to Run
-
-**Step 1: Activate the virtual environment**
-
-```powershell
-.\.venv\Scripts\Activate.ps1
+```text
+results/new_customer_predictions.csv
 ```
 
-**Step 2: Install dependencies**
+## 13. Intended Use
 
-```powershell
-pip install -r requirements.txt
-```
+This project is designed to support telecommunications customer retention teams by identifying and prioritizing customers who may be at risk of leaving.
 
-**Step 3: Run Lab 4**
+Potential applications include:
 
-```powershell
-python src/04_model_evaluation.py
-```
+- Prioritizing weekly retention calls.
+- Identifying high-risk customer segments.
+- Supporting proactive customer outreach.
+- Helping retention teams plan suitable customer offers.
+- Supporting data-driven retention strategies.
 
-The evaluation results will be displayed in the terminal, and all six diagrams will be saved automatically in the `results/` directory.
+The model is intended as a decision-support tool. Final customer retention decisions should involve human review.
 
-**Note:** Lab 4 requires the trained model files from Lab 3 and the preprocessing module from Lab 2.
+## 14. Assumptions, Risks & Limitations
 
-### 11. Conclusion
-
-In this lab, Logistic Regression and Linear SVM were evaluated using multiple classification metrics and visualizations.
-
-Both models demonstrated similar overall accuracy and ROC-AUC performance. However, their low recall scores indicate that churn detection needs further improvement.
-
-The evaluation results provide a foundation for the next stage of the project.
-
-### 12. Next Steps
-
-
-## 7. How to Run
-
-Install the required dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Train and save the machine learning pipeline:
-
-```bash
-python src/lab7_save.py
-```
-
-Generate predictions for new customers:
-
-```bash
-python src/predict.py data/new_customers.csv
-```
-
-The prediction script writes results to:
-
-`reports/predictions.csv`
-
-## 8. Model Results
-
-Model performance will be documented after training and evaluation.
-
-| Metric | Baseline | Our Model |
-|---|---|---|
-| PR-AUC | Pending | Pending |
-| Churners in Top 100 | Pending | Pending |
-
-## 9. Intended Use
-
-The model is intended to help the customer retention team prioritize customers who may be at risk of leaving the service.
-
-Predictions should support human decision-making and customer outreach.
-
-## 10. Not for
-
-- Automatically cancelling customer accounts.
-- Making final business decisions without human review.
-- Treating predictions as guaranteed outcomes.
-
-## 11. Assumptions
+### Assumptions
 
 - Historical customer information can help identify churn patterns.
 - Customer features are available before the prediction date.
-- The target variable represents customer churn.
-- Predictions are used to prioritize retention efforts.
+- The target variable accurately represents customer churn.
+- Predictions are used to prioritize retention activities.
+- Financial estimates rely on the stated business assumptions.
 
-## 12. Risks and Limitations
+### Risks & Limitations
 
-- Missing values may affect model performance.
-- Historical patterns may change over time.
-- The dataset may not represent all real-world customer behaviour.
-- Some features may introduce data leakage if they contain information recorded after a customer decides to leave.
-- Model predictions are estimates, not guarantees.
+- The dataset contains only 5,000 customer records and may not represent all real-world telecom customers.
+- Class imbalance can affect classification performance.
+- The selected model has relatively low precision, so some contacted customers may not actually churn.
+- Linear SVM decision scores are not calibrated churn probabilities.
+- Historical customer behavior may change over time.
+- Features containing information recorded after a churn decision could introduce data leakage.
+- Business impact estimates are hypothetical and require validation using actual retention outcomes.
+- Model performance should be monitored and evaluated on new data before production use.
+
+## 15. Future Improvements
+
+Potential improvements for future development include:
+
+- Test additional machine learning algorithms.
+- Improve churn prediction through hyperparameter tuning.
+- Evaluate model performance on new real-world customer data.
+- Develop a dashboard for the retention team.
+- Monitor model performance over time.
+
+## 16. Project Conclusion
+
+CityNet Customer Churn Prediction demonstrates an end-to-end machine learning workflow, from dataset exploration and preprocessing to model training, evaluation, business analysis, and predictions for new customers.
+
+Five model configurations were evaluated, and Tuned Linear SVM was selected as the candidate model based on its recall and F1-score.
+
+The selected model identified 51 actual churners among the top 100 highest-risk customers in the test dataset, achieving 51% Precision@100.
+
+A retention strategy was designed for the 49 active customers in that group, and a potential net business benefit of 231,194.70 was estimated using predefined assumptions.
+
+Finally, the saved Linear SVM pipeline successfully generated predictions for eight new customers and produced a verified CSV report.
+
+This project demonstrates how machine learning can support customer retention planning and data-driven business decisions.
+
+---
+
+**Project:** CityNet Customer Churn Prediction & Retention Call List  
+**Primary Model:** Linear Support Vector Machine (SVM)  
+**Programming Language:** Python  
+**Framework:** Scikit-learn  
+**Project Status:** Completed
