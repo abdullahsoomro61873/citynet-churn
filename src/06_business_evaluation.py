@@ -10,7 +10,7 @@
 from pathlib import Path
 
 import pandas as pd
-
+import joblib
 from sklearn.pipeline import Pipeline
 from sklearn.svm import LinearSVC
 
@@ -92,6 +92,24 @@ print("\n========== TRAINING SELECTED MODEL ==========")
 selected_model.fit(X_train, y_train)
 
 print("\nSelected Linear SVM trained successfully!")
+
+# Save selected Linear SVM pipeline
+
+MODELS_DIR = PROJECT_DIR / "models"
+
+MODELS_DIR.mkdir(parents=True, exist_ok=True)
+
+selected_model_path = (
+    MODELS_DIR / "selected_linear_svm.joblib"
+)
+
+joblib.dump(
+    selected_model,
+    selected_model_path
+)
+
+print("\nSelected Linear SVM saved successfully!")
+print("Model location:", selected_model_path)
 
 
 # ============================================================

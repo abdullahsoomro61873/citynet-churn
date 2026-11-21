@@ -521,6 +521,204 @@ The selected Linear SVM model identified the top 100 high-risk customers. A rete
 
 This demonstrates how customer churn prediction can support proactive customer retention and data-driven business planning.
 
+# Lab 7 – New Customer Churn Prediction
+
+## 1. Overview
+
+In this lab, we use the saved Linear Support Vector Machine (Linear SVM) model from Lab 6 to predict customer churn for 8 new customers.
+
+The model is loaded from the saved file. It is **not retrained** in this lab.
+
+The objective is to generate churn predictions, calculate customer risk scores, and save the results into a CSV report.
+
+## 2. Objectives
+
+- Load the previously saved Linear SVM pipeline.
+- Load new customer data from a CSV file.
+- Verify that all required features are available.
+- Generate churn predictions using the saved model.
+- Calculate decision scores for customer risk ranking.
+- Save predictions and risk scores into a CSV report.
+- Verify the generated output.
+
+## 3. Project Files
+
+```text
+citynet-churn/
+│
+├── data/
+│   ├── citynet_churn.csv
+│   └── new_customers.csv
+│
+├── models/
+│   └── selected_linear_svm.joblib
+│
+├── results/
+│   └── new_customer_predictions.csv
+│
+├── src/
+│   ├── data_preprocessing.py
+│   ├── 06_business_evaluation.py
+│   └── 07_new_customer_predictions.py
+│
+└── README.md
+```
+
+## 4. Input Dataset
+
+**File:** `data/new_customers.csv`
+
+The dataset contains 8 new customers and 11 input features.
+
+The `customer_id` column is used to identify customers and is not used as a model feature.
+
+The model uses the same preprocessing pipeline and feature structure that were used during training.
+
+## 5. Saved Model
+
+**Model file:** `models/selected_linear_svm.joblib`
+
+The saved file contains the complete Scikit-learn Pipeline:
+
+- Preprocessing
+- Numerical feature imputation and scaling
+- Categorical feature imputation and encoding
+- Linear SVM classifier
+
+The complete pipeline is loaded using Joblib.
+
+No model retraining is performed in Lab 7.
+
+## 6. Prediction Process
+
+The following steps are performed:
+
+1. Verify the input dataset and saved model.
+2. Load the new customer dataset.
+3. Separate customer IDs from model features.
+4. Verify all 11 required features.
+5. Load the saved Linear SVM pipeline.
+6. Generate churn predictions using `predict()`.
+7. Generate decision scores using `decision_function()`.
+8. Sort customers by risk score.
+9. Save the results into a CSV file.
+10. Reload and verify the generated CSV report.
+
+## 7. Prediction Results
+
+The saved model generated predictions for all 8 customers.
+
+| Customer ID | Churn Prediction | Risk Score |
+|---|---:|---:|
+| C90001 | 1 | 0.611320 |
+| C90002 | 1 | 0.038960 |
+| C90007 | 0 | -0.031730 |
+| C90006 | 0 | -0.043645 |
+| C90004 | 0 | -0.084072 |
+| C90005 | 0 | -0.284152 |
+| C90003 | 0 | -0.375793 |
+| C90008 | 0 | -0.618889 |
+
+### Prediction Labels
+
+- `1` = Customer predicted to churn.
+- `0` = Customer predicted not to churn.
+
+### Risk Score Explanation
+
+The Linear SVM `decision_function()` returns decision scores, not probability percentages.
+
+- A positive score indicates a prediction towards the churn class.
+- A negative score indicates a prediction towards the non-churn class.
+- Higher scores indicate a stronger model decision towards churn.
+
+C90001 has the highest churn decision score, followed by C90002.
+
+## 8. Business Findings
+
+Out of 8 new customers:
+
+- Predicted churners: 2
+- Predicted non-churners: 6
+- Predicted churn rate: 25%
+- Predicted non-churn rate: 75%
+
+### Business Recommendation
+
+The business can prioritize C90001 and C90002 for customer retention activities.
+
+Possible actions include:
+
+- Contacting high-risk customers.
+- Understanding their service-related complaints.
+- Reviewing their billing and payment experience.
+- Offering suitable retention plans where appropriate.
+- Monitoring customer satisfaction.
+
+These are model-based predictions and should be reviewed alongside actual customer feedback before taking business action.
+
+## 9. Output Report
+
+**Generated file:**
+
+`results/new_customer_predictions.csv`
+
+The report contains three columns:
+
+| Column | Description |
+|---|---|
+| customer_id | Unique customer identifier |
+| churn_prediction | Predicted churn class (0 or 1) |
+| risk_score | Linear SVM decision score |
+
+## 10. How to Run Lab 7
+
+Open PowerShell in the project directory:
+
+```powershell
+cd D:\citynet-churn
+```
+
+Activate the virtual environment:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Run the prediction script:
+
+```powershell
+python src/07_new_customer_predictions.py
+```
+
+The generated report will be saved in the `results` directory.
+
+## 11. Final Verification
+
+The following checks were successfully completed:
+
+| Verification | Result |
+|---|---:|
+| Total customers predicted | 8 |
+| Missing predictions | 0 |
+| Missing risk scores | 0 |
+| Predicted churners | 2 |
+| Predicted non-churners | 6 |
+| CSV file generated | True |
+
+## 12. Conclusion
+
+Lab 7 successfully demonstrated how to use a previously trained and saved Linear SVM pipeline to predict churn for new customers.
+
+The model generated predictions and decision scores for all 8 customers, and the results were successfully saved and verified in a CSV report.
+
+**Lab 7 Status: Completed**
+
+**Project:** CityNet Customer Churn Prediction  
+**Technology:** Python, Pandas, Scikit-learn, Joblib  
+**Model:** Linear Support Vector Machine (Linear SVM)
+
+
 ### 10. How to Run
 
 **Step 1: Activate the virtual environment**
