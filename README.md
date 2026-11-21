@@ -353,6 +353,75 @@ The next lab will focus on:
 **Lab:** 04 – Model Evaluation  
 **Status:** Completed
 
+## Lab 5 – Model Improvement & Comparison
+
+### Objective
+The objective of Lab 5 was to improve customer churn prediction by experimenting with different machine learning models and comparing their performance using multiple evaluation metrics.
+
+### Models Experimented
+
+Five model configurations were evaluated:
+
+1. Logistic Regression – Baseline model.
+2. Linear SVM with Feature Scaling.
+3. Linear SVM without Feature Scaling.
+4. Random Forest with class balancing.
+5. Tuned Linear SVM using GridSearchCV.
+
+### Hyperparameter Tuning
+
+GridSearchCV was used to find the best Linear SVM parameters.
+
+- Best C: `1`
+- Best class_weight: `balanced`
+- Cross-validation: `5-fold StratifiedKFold`
+- Best Cross-Validation F1-score: `0.4262`
+
+### Model Comparison Results
+
+| Model | Accuracy | Precision | Recall | F1-Score | PR-AUC (AP) |
+|---|---:|---:|---:|---:|---:|
+| Logistic Regression | 0.8250 | 0.5588 | 0.1061 | 0.1784 | **0.4018** |
+| Linear SVM (Scaled) | 0.8240 | 0.6667 | 0.0335 | 0.0638 | 0.3998 |
+| Linear SVM (Unscaled) | 0.8250 | 0.7500 | 0.0335 | 0.0642 | 0.3953 |
+| Random Forest | 0.7830 | 0.3443 | 0.2346 | 0.2791 | 0.3183 |
+| Tuned Linear SVM | 0.6660 | 0.2966 | **0.6313** | **0.4036** | 0.4014 |
+
+### Evaluation Metrics
+
+- **Accuracy:** Overall percentage of correct predictions.
+- **Precision:** How many customers predicted as churners actually churned.
+- **Recall:** How many actual churners the model successfully identified.
+- **F1-Score:** Harmonic balance between Precision and Recall.
+- **PR-AUC (AP):** Measures the model's precision-recall performance across different classification thresholds.
+
+### Final Model Selection
+
+The Tuned Linear SVM was selected as the provisional candidate for business evaluation.
+
+Reasons:
+
+- Highest Recall: `0.6313`
+- Highest F1-Score: `0.4036`
+- PR-AUC (AP): `0.4014`
+
+Logistic Regression achieved the highest PR-AUC (AP) of `0.4018`. However, the difference between the two models was very small (`0.0004`).
+
+Since the business objective is to identify as many potential churn customers as possible, Tuned Linear SVM is the more suitable candidate for the next business evaluation stage.
+
+### Output
+
+Model comparison results are saved in:
+
+`results/model_comparison.csv`
+
+### Key Learning
+
+This lab demonstrated that accuracy alone is not sufficient for evaluating models on an imbalanced dataset. Recall, F1-Score, and PR-AUC provide additional insight into churn prediction performance.
+
+**Next:** Lab 6 – Business Evaluation: Identifying the Top 100 High-Risk Customers and evaluating a customer retention strategy.
+
+
 ## 7. How to Run
 
 Install the required dependencies:
